@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #1f1c2c, #928dab);
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      color: #ffffff;
+      letter-spacing: 2px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    section.about {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      animation: slideUp 1.5s ease;
+    }
+
+    section.about h2 {
+      font-size: 2em;
+      color: #ffffff;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ffffff33;
+      padding-bottom: 10px;
+    }
+
+    section.about p {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      color: #e0e0e0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      section.about {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 2em;
+      }
+
+      section.about h2 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>About me</h1>
+  </header>
+
+  <section class="about">
+    <h2>Who I am</h2>
+    </p> I am a programmer, developer and designer I can make anything in any language and I will only charge 25 to 50 rupees. Note: I will except payment in indian currency only. </p>
+
+    <p>My mission is to deliver high-quality work that inspires and empowers.</p>
+
+    <p>With years of experience I help businesses, creators, and startups bring their visions to life online.</p>
+    <p>Contact me at: rohanmanna2012@gmail.com</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Rohan. All rights reserved.
+  </footer>
+</body>
+</html>
