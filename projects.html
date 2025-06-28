@@ -1,601 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pro Calculator Project</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pro Calculator Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600\\\&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
-    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
 
-    header {
-      background-color: #1e293b;
-      color: #fff;
-      padding: 30px 40px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+    header {
+      background-color: #1e293b;
+      color: #fff;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-    nav {
-      margin-top: 15px;
-    }
+    nav {
+      margin-top: 15px;
+    }
 
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
 
-    nav a:hover {
-      color: #ffffff;
-    }
+    nav a:hover {
+      color: #ffffff;
+    }
 
-    main {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+    main {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-    section {
-      margin-bottom: 50px;
-    }
+    section {
+      margin-bottom: 50px;
+    }
 
-    h1, h2 {
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
+    h1, h2 {
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
 
-    .card {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 25px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    }
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
 
-    .calculator {
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 300px;
-      margin: 0 auto;
-    }
+    .calculator {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
 
-    .display {
-      width: 100%;
-      height: 50px;
-      margin-bottom: 10px;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+    .display {
+      width: 100%;
+      height: 50px;
+      margin-bottom: 10px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
 
-    .buttons button {
-      padding: 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1e293b;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+    .buttons button {
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1e293b;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-    .buttons button:hover {
-      background-color: #334155;
-    }
+    .buttons button:hover {
+      background-color: #334155;
+    }
 
-    .buttons .clear {
-      background-color: #f87171;
-    }
+    .buttons .clear {
+      background-color: #f87171;
+    }
 
-    .buttons .equal {
-      background-color: #34d399;
-      grid-column: span 2;
-    }
+    .buttons .equal {
+      background-color: #34d399;
+      grid-column: span 2;
+    }
 
-    pre {
-      background-color: #0f172a;
-      color: #e2e8f0;
-      padding: 15px;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: monospace;
-    }
+    pre {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: monospace;
+    }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #1e293b;
-      color: #fff;
-      margin-top: 40px;
-    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e293b;
+      color: #fff;
+      margin-top: 40px;
+    }
 
-    @media (max-width: 768px) {
-      nav a {
-        display: block;
-        margin: 10px 0;
-      }
-    }
-  </style>
+    @media (max-width: 768px) {
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to My Pro Calculator Project</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#sample-code">Sample Code</a>
-      <a href="#live-demo">Live Demo</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <header>
+    <h1>Welcome to My Pro Calculator Project</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#sample-code">Sample Code</a>
+      <a href="#live-demo">Live Demo</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <main>
-    <section id="about" class="card">
-      <h2>About</h2>
-      <p>This is a professionally styled calculator project built using HTML, CSS, and JavaScript. It's lightweight, fast, and has a clean interface.</p>
-    </section>
+  <main>
+    <section id="about" class="card">
+      <h2>About</h2>
+      <p>This is a professionally styled calculator project built using HTML, CSS, and JavaScript. It's lightweight, fast, and has a clean interface.</p>
+    </section>
 
-    <section id="features" class="card">
-      <h2>Features</h2>
-      <ul>
-        <li>Sleek and responsive design</li>
-        <li>Built with HTML, CSS, and JavaScript</li>
-        <li>Instant calculation results</li>
-        <li>Error handling for invalid input</li>
-      </ul>
-    </section>
+    <section id="features" class="card">
+      <h2>Features</h2>
+      <ul>
+        <li>Sleek and responsive design</li>
+        <li>Built with HTML, CSS, and JavaScript</li>
+        <li>Instant calculation results</li>
+        <li>Error handling for invalid input</li>
+      </ul>
+    </section>
 
-    <section id="sample-code" class="card">
-      <h2>Sample Code</h2>
-      <pre><code>&lt;!DOCTYPE html&gt;
+    <section id="sample-code" class="card">
+      <h2>Sample Code</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-  &lt;meta charset="UTF-8" /&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
-  &lt;title&gt;Simple Calculator&lt;/title&gt;
-  &lt;style&gt;
-    body {
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f4f8;
-    }
-    .calculator {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    .display {
-      width: 100%;
-      height: 50px;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-    .buttons button {
-      padding: 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1e293b;
-      color: #fff;
-      cursor: pointer;
-    }
-    .buttons .clear {
-      background-color: #f87171;
-    }
-    .buttons .equal {
-      background-color: #34d399;
-      grid-column: span 2;
-    }
-  &lt;/style&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+  &lt;title&gt;Simple Calculator&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f4f8;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .buttons button {
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1e293b;
+      color: #fff;
+      cursor: pointer;
+    }
+    .buttons .clear {
+      background-color: #f87171;
+    }
+    .buttons .equal {
+      background-color: #34d399;
+      grid-column: span 2;
+    }
+  &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
-  &lt;div class="calculator"&gt;
-    &lt;input type="text" class="display" id="display" disabled&gt;
-    &lt;div class="buttons"&gt;
-      &lt;button onclick="clearDisplay()" class="clear"&gt;C&lt;/button&gt;
-      &lt;button onclick="appendValue('(')"&gt;(&lt;/button&gt;
-      &lt;button onclick="appendValue(')')"&gt;)&lt;/button&gt;
-      &lt;button onclick="appendValue('/')"&gt;÷&lt;/button&gt;
-      &lt;button onclick="appendValue('7')"&gt;7&lt;/button&gt;
-      &lt;button onclick="appendValue('8')"&gt;8&lt;/button&gt;
-      &lt;button onclick="appendValue('9')"&gt;9&lt;/button&gt;
-      &lt;button onclick="appendValue('*')"&gt;×&lt;/button&gt;
-      &lt;button onclick="appendValue('4')"&gt;4&lt;/button&gt;
-      &lt;button onclick="appendValue('5')"&gt;5&lt;/button&gt;
-      &lt;button onclick="appendValue('6')"&gt;6&lt;/button&gt;
-      &lt;button onclick="appendValue('-')"&gt;−&lt;/button&gt;
-      &lt;button onclick="appendValue('1')"&gt;1&lt;/button&gt;
-      &lt;button onclick="appendValue('2')"&gt;2&lt;/button&gt;
-      &lt;button onclick="appendValue('3')"&gt;3&lt;/button&gt;
-      &lt;button onclick="appendValue('+')"&gt;+&lt;/button&gt;
-      &lt;button onclick="appendValue('0')"&gt;0&lt;/button&gt;
-      &lt;button onclick="appendValue('.')"&gt;.&lt;/button&gt;
-      &lt;button onclick="calculateResult()" class="equal"&gt;=&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+  &lt;div class="calculator"&gt;
+    &lt;input type="text" class="display" id="display" disabled&gt;
+    &lt;div class="buttons"&gt;
+      &lt;button onclick="clearDisplay()" class="clear"&gt;C&lt;/button&gt;
+      &lt;button onclick="appendValue('(')"&gt;(&lt;/button&gt;
+      &lt;button onclick="appendValue(')')"&gt;)&lt;/button&gt;
+      &lt;button onclick="appendValue('/')"&gt;÷&lt;/button&gt;
+      &lt;button onclick="appendValue('7')"&gt;7&lt;/button&gt;
+      &lt;button onclick="appendValue('8')"&gt;8&lt;/button&gt;
+      &lt;button onclick="appendValue('9')"&gt;9&lt;/button&gt;
+      &lt;button onclick="appendValue('*')"&gt;×&lt;/button&gt;
+      &lt;button onclick="appendValue('4')"&gt;4&lt;/button&gt;
+      &lt;button onclick="appendValue('5')"&gt;5&lt;/button&gt;
+      &lt;button onclick="appendValue('6')"&gt;6&lt;/button&gt;
+      &lt;button onclick="appendValue('-')"&gt;−&lt;/button&gt;
+      &lt;button onclick="appendValue('1')"&gt;1&lt;/button&gt;
+      &lt;button onclick="appendValue('2')"&gt;2&lt;/button&gt;
+      &lt;button onclick="appendValue('3')"&gt;3&lt;/button&gt;
+      &lt;button onclick="appendValue('+')"&gt;+&lt;/button&gt;
+      &lt;button onclick="appendValue('0')"&gt;0&lt;/button&gt;
+      &lt;button onclick="appendValue('.')"&gt;.&lt;/button&gt;
+      &lt;button onclick="calculateResult()" class="equal"&gt;=&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 
-  &lt;script&gt;
-    const display = document.getElementById('display');
-    function appendValue(value) {
-      display.value += value;
-    }
-    function clearDisplay() {
-      display.value = '';
-    }
-    function calculateResult() {
-      try {
-        display.value = eval(display.value);
-      } catch (error) {
-        display.value = 'Error';
-      }
-    }
-  &lt;/script&gt;
+  &lt;script&gt;
+    const display = document.getElementById('display');
+    function appendValue(value) {
+      display.value += value;
+    }
+    function clearDisplay() {
+      display.value = '';
+    }
+    function calculateResult() {
+      try {
+        display.value = eval(display.value);
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-      </code></pre>
-    </section>
+      </code></pre>
+    </section>
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple Chess with AI and On-Screen Win/Lose</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-      background: #f0d9b5;
-      font-family: Arial, sans-serif;
-    }
-    #chessboard {
-      display: grid;
-      grid-template-columns: repeat(8, 60px);
-      grid-template-rows: repeat(8, 60px);
-      border: 2px solid #333;
-      user-select: none;
-    }
-    .square {
-      width: 60px;
-      height: 60px;
-      font-size: 40px;
-      text-align: center;
-      line-height: 60px;
-      cursor: pointer;
-    }
-    .light {
-      background-color: #eeeed2;
-    }
-    .dark {
-      background-color: #769656;
-    }
-    .selected {
-      outline: 3px solid red;
-    }
-    #status {
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 20px;
-      min-height: 28px;
-      color: darkgreen;
-    }
-  </style>
-</head>
-<body>
+    <section id="live-demo" class="card">
+      <h2>Live Demo</h2>
+      <div class="calculator">
+        <input type="text" class="display" id="live-display" disabled>
+        <div class="buttons">
+          <button onclick="clearDisplay()" class="clear">C</button>
+          <button onclick="appendValue('(')">(</button>
+          <button onclick="appendValue(')')">)</button>
+          <button onclick="appendValue('/')">÷</button>
 
-<div>
-  <div id="chessboard"></div>
-  <div id="status">Turn: White</div>
-</div>
+          <button onclick="appendValue('7')">7</button>
+          <button onclick="appendValue('8')">8</button>
+          <button onclick="appendValue('9')">9</button>
+          <button onclick="appendValue('\\\*')">×</button>
 
-<script>
-  const pieces = {
-    'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
-    'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙',
-    '': ''
-  };
+          <button onclick="appendValue('4')">4</button>
+          <button onclick="appendValue('5')">5</button>
+          <button onclick="appendValue('6')">6</button>
+          <button onclick="appendValue('-')">−</button>
 
-  let boardState = [
-    ['r','n','b','q','k','b','n','r'],
-    ['p','p','p','p','p','p','p','p'],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['P','P','P','P','P','P','P','P'],
-    ['R','N','B','Q','K','B','N','R'],
-  ];
+          <button onclick="appendValue('1')">1</button>
+          <button onclick="appendValue('2')">2</button>
+          <button onclick="appendValue('3')">3</button>
+          <button onclick="appendValue('+')">+</button>
 
-  const chessboard = document.getElementById('chessboard');
-  const statusEl = document.getElementById('status');
-  let selected = null;
-  let turn = 'white';
-  let gameOver = false;
+          <button onclick="appendValue('0')">0</button>
+          <button onclick="appendValue('.')">.</button>
+          <button onclick="calculateResult()" class="equal">=</button>
+        </div>
+      </div>
+    </section>
 
-  function isWhite(piece) {
-    return piece && piece === piece.toUpperCase();
-  }
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>Feel free to reach out via email. Copy the address and contact me on Gmail:</p>
+      <p><strong>Email:</strong> rohanmanna2012@gmail.com</p>
+    </section>
+  </main>
 
-  function isBlack(piece) {
-    return piece && piece === piece.toLowerCase();
-  }
+  <footer>
+    &copy; 2025 Rohan. All rights reserved.
+  </footer>
 
-  function validMove(fromR, fromC, toR, toC) {
-    if (gameOver) return false;
+  <script>
+    const display = document.getElementById('live-display');
 
-    const piece = boardState[fromR][fromC];
-    const target = boardState[toR][toC];
-    if (!piece) return false;
-    if (target !== '') {
-      if (isWhite(piece) && isWhite(target)) return false;
-      if (isBlack(piece) && isBlack(target)) return false;
-    }
+    function appendValue(value) {
+      display.value += value;
+    }
 
-    const dr = toR - fromR;
-    const dc = toC - fromC;
-    const absDr = Math.abs(dr);
-    const absDc = Math.abs(dc);
-    const direction = isWhite(piece) ? -1 : 1;
+    function clearDisplay() {
+      display.value = '';
+    }
 
-    switch(piece.toLowerCase()) {
-      case 'p':
-        if (dc === 0) {
-          if (dr === direction && target === '') return true;
-          if ((fromR === 6 && isWhite(piece)) || (fromR === 1 && isBlack(piece))) {
-            if (dr === 2*direction && target === '' && boardState[fromR + direction][fromC] === '') return true;
-          }
-        }
-        if (absDc === 1 && dr === direction && target !== '' && ((isWhite(piece) && isBlack(target)) || (isBlack(piece) && isWhite(target)))) {
-          return true;
-        }
-        return false;
-
-      case 'r':
-        if (dr !== 0 && dc !== 0) return false;
-        return clearPath(fromR, fromC, toR, toC);
-
-      case 'n':
-        return (absDr === 2 && absDc === 1) || (absDr === 1 && absDc === 2);
-
-      case 'b':
-        if (absDr !== absDc) return false;
-        return clearPath(fromR, fromC, toR, toC);
-
-      case 'q':
-        if (dr === 0 || dc === 0 || absDr === absDc) {
-          return clearPath(fromR, fromC, toR, toC);
-        }
-        return false;
-
-      case 'k':
-        return absDr <= 1 && absDc <= 1;
-
-      default:
-        return false;
-    }
-  }
-
-  function clearPath(fromR, fromC, toR, toC) {
-    let stepR = toR - fromR === 0 ? 0 : (toR - fromR) / Math.abs(toR - fromR);
-    let stepC = toC - fromC === 0 ? 0 : (toC - fromC) / Math.abs(toC - fromC);
-
-    let r = fromR + stepR;
-    let c = fromC + stepC;
-
-    while (r !== toR || c !== toC) {
-      if (boardState[r][c] !== '') return false;
-      r += stepR;
-      c += stepC;
-    }
-    return true;
-  }
-
-  function renderBoard() {
-    chessboard.innerHTML = '';
-    for(let row=0; row<8; row++) {
-      for(let col=0; col<8; col++) {
-        const square = document.createElement('div');
-        square.classList.add('square');
-        if ((row + col) % 2 === 0) {
-          square.classList.add('light');
-        } else {
-          square.classList.add('dark');
-        }
-        square.dataset.row = row;
-        square.dataset.col = col;
-        square.textContent = pieces[boardState[row][col]];
-        if (!gameOver) square.addEventListener('click', onSquareClick);
-        if (selected && selected.row === row && selected.col === col) {
-          square.classList.add('selected');
-        }
-        chessboard.appendChild(square);
-      }
-    }
-    if (!gameOver) {
-      statusEl.style.color = 'darkgreen';
-      statusEl.textContent = `Turn: ${turn.charAt(0).toUpperCase() + turn.slice(1)}`;
-    }
-  }
-
-  function onSquareClick(e) {
-    if (turn !== 'white' || gameOver) return;
-    const row = parseInt(e.target.dataset.row);
-    const col = parseInt(e.target.dataset.col);
-    const piece = boardState[row][col];
-
-    if (selected) {
-      if (validMove(selected.row, selected.col, row, col)) {
-        boardState[row][col] = boardState[selected.row][selected.col];
-        boardState[selected.row][selected.col] = '';
-        turn = 'black';
-        selected = null;
-        renderBoard();
-        setTimeout(aiMove, 500);
-      } else {
-        selected = null;
-        renderBoard();
-      }
-    } else {
-      if (piece !== '') {
-        if (turn === 'white' && isWhite(piece)) {
-          selected = {row, col};
-          renderBoard();
-        }
-      }
-    }
-  }
-
-  function generateMovesFor(color) {
-    const moves = [];
-    for (let r=0; r<8; r++) {
-      for (let c=0; c<8; c++) {
-        const piece = boardState[r][c];
-        if ((color === 'white' && isWhite(piece)) || (color === 'black' && isBlack(piece))) {
-          for (let tr=0; tr<8; tr++) {
-            for (let tc=0; tc<8; tc++) {
-              if (validMove(r, c, tr, tc)) {
-                moves.push({fromR: r, fromC: c, toR: tr, toC: tc});
-              }
-            }
-          }
-        }
-      }
-    }
-    return moves;
-  }
-
-  function setGameOver(message) {
-    gameOver = true;
-    statusEl.style.color = 'red';
-    statusEl.textContent = message;
-  }
-
-  function aiMove() {
-    if (gameOver) return;
-    const moves = generateMovesFor('black');
-    if (moves.length === 0) {
-      setGameOver('You win! Black has no valid moves.');
-      return;
-    }
-    const move = moves[Math.floor(Math.random() * moves.length)];
-    boardState[move.toR][move.toC] = boardState[move.fromR][move.fromC];
-    boardState[move.fromR][move.fromC] = '';
-    turn = 'white';
-    renderBoard();
-
-    if (generateMovesFor('white').length === 0) {
-      setGameOver('You lose! White has no valid moves.');
-    }
-  }
-
-  renderBoard();
-</script>
-
-</body>
-</html>
-    <section id="live-demo" class="card">
-      <h2>Live Demo</h2>
-      <div class="calculator">
-        <input type="text" class="display" id="live-display" disabled>
-        <div class="buttons">
-          <button onclick="clearDisplay()" class="clear">C</button>
-          <button onclick="appendValue('(')">(</button>
-          <button onclick="appendValue(')')">)</button>
-          <button onclick="appendValue('/')">÷</button>
-
-          <button onclick="appendValue('7')">7</button>
-          <button onclick="appendValue('8')">8</button>
-          <button onclick="appendValue('9')">9</button>
-          <button onclick="appendValue('*')">×</button>
-
-          <button onclick="appendValue('4')">4</button>
-          <button onclick="appendValue('5')">5</button>
-          <button onclick="appendValue('6')">6</button>
-          <button onclick="appendValue('-')">−</button>
-
-          <button onclick="appendValue('1')">1</button>
-          <button onclick="appendValue('2')">2</button>
-          <button onclick="appendValue('3')">3</button>
-          <button onclick="appendValue('+')">+</button>
-
-          <button onclick="appendValue('0')">0</button>
-          <button onclick="appendValue('.')">.</button>
-          <button onclick="calculateResult()" class="equal">=</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p>Feel free to reach out via email. Copy the address and contact me on Gmail:</p>
-      <p><strong>Email:</strong> rohanmanna2012@gmail.com</p>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 Rohan. All rights reserved.
-  </footer>
-
-  <script>
-    const display = document.getElementById('live-display');
-
-    function appendValue(value) {
-      display.value += value;
-    }
-
-    function clearDisplay() {
-      display.value = '';
-    }
-
-    function calculateResult() {
-      try {
-        display.value = eval(display.value);
-      } catch (error) {
-        display.value = 'Error';
-      }
-    }
-  </script>
+    function calculateResult() {
+      try {
+        display.value = eval(display.value);
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+  </script>
 
 </body>
 </html>
