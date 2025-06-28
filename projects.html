@@ -1,342 +1,366 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pro Calculator Project</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600\\\&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pro Calculator & Chess AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
-    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #e2e8f0);
+      color: #333;
+    }
 
-    header {
-      background-color: #1e293b;
-      color: #fff;
-      padding: 30px 40px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+    header {
+      background: linear-gradient(to right, #1e3a8a, #1e40af);
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
 
-    nav {
-      margin-top: 15px;
-    }
+    nav {
+      margin-top: 15px;
+    }
 
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
 
-    nav a:hover {
-      color: #ffffff;
-    }
+    nav a:hover {
+      color: #ffffff;
+    }
 
-    main {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+    main {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-    section {
-      margin-bottom: 50px;
-    }
+    h1, h2 {
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
 
-    h1, h2 {
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
+    section {
+      margin-bottom: 50px;
+    }
 
-    .card {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 25px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    }
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
 
-    .calculator {
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 300px;
-      margin: 0 auto;
-    }
+    .calculator {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto 40px;
+    }
 
-    .display {
-      width: 100%;
-      height: 50px;
-      margin-bottom: 10px;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+    .display {
+      width: 100%;
+      height: 60px;
+      font-size: 26px;
+      text-align: right;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9fafb;
+    }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
 
-    .buttons button {
-      padding: 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1e293b;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+    .buttons button {
+      padding: 18px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #1e293b;
+      color: white;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
 
-    .buttons button:hover {
-      background-color: #334155;
-    }
+    .buttons button:hover {
+      background-color: #334155;
+    }
 
-    .buttons .clear {
-      background-color: #f87171;
-    }
+    .buttons .clear {
+      background-color: #ef4444;
+    }
 
-    .buttons .equal {
-      background-color: #34d399;
-      grid-column: span 2;
-    }
+    .buttons .equal {
+      background-color: #10b981;
+      grid-column: span 2;
+    }
 
-    pre {
-      background-color: #0f172a;
-      color: #e2e8f0;
-      padding: 15px;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: monospace;
-    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e293b;
+      color: #fff;
+      margin-top: 40px;
+    }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #1e293b;
-      color: #fff;
-      margin-top: 40px;
-    }
+    @media (max-width: 768px) {
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
 
-    @media (max-width: 768px) {
-      nav a {
-        display: block;
-        margin: 10px 0;
-      }
-    }
-  </style>
+    /* Chess styles */
+    .chess-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 60px);
+      grid-template-rows: repeat(8, 60px);
+      border: 2px solid #333;
+      user-select: none;
+      margin-bottom: 10px;
+    }
+
+    .square {
+      width: 60px;
+      height: 60px;
+      font-size: 40px;
+      text-align: center;
+      line-height: 60px;
+      cursor: pointer;
+    }
+
+    .light {
+      background-color: #eeeed2;
+    }
+
+    .dark {
+      background-color: #769656;
+    }
+
+    .selected {
+      outline: 3px solid red;
+    }
+
+    #status {
+      font-weight: bold;
+      font-size: 20px;
+      min-height: 28px;
+      color: darkgreen;
+    }
+  </style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to My Pro Calculator Project</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#sample-code">Sample Code</a>
-      <a href="#live-demo">Live Demo</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <header>
+    <h1>🚀 Pro Calculator & Chess AI Project</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#live-demo">Live Demo</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <main>
-    <section id="about" class="card">
-      <h2>About</h2>
-      <p>This is a professionally styled calculator project built using HTML, CSS, and JavaScript. It's lightweight, fast, and has a clean interface.</p>
-    </section>
+  <main>
+    <section id="about" class="card">
+      <h2>About</h2>
+      <p>A modern calculator and a fun chess AI game built using HTML, CSS, and JavaScript — all in one professional project.</p>
+    </section>
 
-    <section id="features" class="card">
-      <h2>Features</h2>
-      <ul>
-        <li>Sleek and responsive design</li>
-        <li>Built with HTML, CSS, and JavaScript</li>
-        <li>Instant calculation results</li>
-        <li>Error handling for invalid input</li>
-      </ul>
-    </section>
+    <section id="features" class="card">
+      <h2>Features</h2>
+      <ul>
+        <li>🧮 Calculator with responsive UI and safe expression evaluation</li>
+        <li>♟️ Chess game with basic AI opponent</li>
+        <li>🎮 Playable interface with on-screen feedback</li>
+        <li>🌐 Fully browser-based with no dependencies</li>
+      </ul>
+    </section>
 
-    <section id="sample-code" class="card">
-      <h2>Sample Code</h2>
-      <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8" /&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
-  &lt;title&gt;Simple Calculator&lt;/title&gt;
-  &lt;style&gt;
-    body {
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f4f8;
-    }
-    .calculator {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    .display {
-      width: 100%;
-      height: 50px;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-    .buttons button {
-      padding: 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1e293b;
-      color: #fff;
-      cursor: pointer;
-    }
-    .buttons .clear {
-      background-color: #f87171;
-    }
-    .buttons .equal {
-      background-color: #34d399;
-      grid-column: span 2;
-    }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
+    <section id="live-demo" class="card">
+      <h2>Live Demo</h2>
 
-  &lt;div class="calculator"&gt;
-    &lt;input type="text" class="display" id="display" disabled&gt;
-    &lt;div class="buttons"&gt;
-      &lt;button onclick="clearDisplay()" class="clear"&gt;C&lt;/button&gt;
-      &lt;button onclick="appendValue('(')"&gt;(&lt;/button&gt;
-      &lt;button onclick="appendValue(')')"&gt;)&lt;/button&gt;
-      &lt;button onclick="appendValue('/')"&gt;÷&lt;/button&gt;
-      &lt;button onclick="appendValue('7')"&gt;7&lt;/button&gt;
-      &lt;button onclick="appendValue('8')"&gt;8&lt;/button&gt;
-      &lt;button onclick="appendValue('9')"&gt;9&lt;/button&gt;
-      &lt;button onclick="appendValue('*')"&gt;×&lt;/button&gt;
-      &lt;button onclick="appendValue('4')"&gt;4&lt;/button&gt;
-      &lt;button onclick="appendValue('5')"&gt;5&lt;/button&gt;
-      &lt;button onclick="appendValue('6')"&gt;6&lt;/button&gt;
-      &lt;button onclick="appendValue('-')"&gt;−&lt;/button&gt;
-      &lt;button onclick="appendValue('1')"&gt;1&lt;/button&gt;
-      &lt;button onclick="appendValue('2')"&gt;2&lt;/button&gt;
-      &lt;button onclick="appendValue('3')"&gt;3&lt;/button&gt;
-      &lt;button onclick="appendValue('+')"&gt;+&lt;/button&gt;
-      &lt;button onclick="appendValue('0')"&gt;0&lt;/button&gt;
-      &lt;button onclick="appendValue('.')"&gt;.&lt;/button&gt;
-      &lt;button onclick="calculateResult()" class="equal"&gt;=&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+      <!-- Calculator -->
+      <div class="calculator">
+        <input type="text" class="display" id="display" disabled />
+        <div class="buttons">
+          <button onclick="clearDisplay()" class="clear">C</button>
+          <button onclick="appendValue('(')">(</button>
+          <button onclick="appendValue(')')">)</button>
+          <button onclick="appendValue('/')">÷</button>
+          <button onclick="appendValue('7')">7</button>
+          <button onclick="appendValue('8')">8</button>
+          <button onclick="appendValue('9')">9</button>
+          <button onclick="appendValue('*')">×</button>
+          <button onclick="appendValue('4')">4</button>
+          <button onclick="appendValue('5')">5</button>
+          <button onclick="appendValue('6')">6</button>
+          <button onclick="appendValue('-')">−</button>
+          <button onclick="appendValue('1')">1</button>
+          <button onclick="appendValue('2')">2</button>
+          <button onclick="appendValue('3')">3</button>
+          <button onclick="appendValue('+')">+</button>
+          <button onclick="appendValue('0')">0</button>
+          <button onclick="appendValue('.')">.</button>
+          <button onclick="calculateResult()" class="equal">=</button>
+        </div>
+      </div>
 
-  &lt;script&gt;
-    const display = document.getElementById('display');
-    function appendValue(value) {
-      display.value += value;
-    }
-    function clearDisplay() {
-      display.value = '';
-    }
-    function calculateResult() {
-      try {
-        display.value = eval(display.value);
-      } catch (error) {
-        display.value = 'Error';
-      }
-    }
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-      </code></pre>
-    </section>
+      <!-- Chess Game -->
+      <div class="chess-container">
+        <div id="chessboard"></div>
+        <div id="status">Turn: White</div>
+      </div>
+    </section>
 
-    <section id="live-demo" class="card">
-      <h2>Live Demo</h2>
-      <div class="calculator">
-        <input type="text" class="display" id="live-display" disabled>
-        <div class="buttons">
-          <button onclick="clearDisplay()" class="clear">C</button>
-          <button onclick="appendValue('(')">(</button>
-          <button onclick="appendValue(')')">)</button>
-          <button onclick="appendValue('/')">÷</button>
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>Have questions or feedback? Reach out:</p>
+      <p><strong>Email:</strong> <a href="mailto:rohanmanna2012@gmail.com">rohanmanna2012@gmail.com</a></p>
+    </section>
+  </main>
 
-          <button onclick="appendValue('7')">7</button>
-          <button onclick="appendValue('8')">8</button>
-          <button onclick="appendValue('9')">9</button>
-          <button onclick="appendValue('\\\*')">×</button>
+  <footer>
+    &copy; 2025 Rohan. All rights reserved.
+  </footer>
 
-          <button onclick="appendValue('4')">4</button>
-          <button onclick="appendValue('5')">5</button>
-          <button onclick="appendValue('6')">6</button>
-          <button onclick="appendValue('-')">−</button>
+  <!-- Calculator Script -->
+  <script>
+    const display = document.getElementById('display');
+    function appendValue(val) { display.value += val; }
+    function clearDisplay() { display.value = ''; }
+    function calculateResult() {
+      try {
+        const result = Function('"use strict"; return (' + display.value + ')')();
+        display.value = result;
+      } catch {
+        display.value = 'Error';
+      }
+    }
+    document.addEventListener('keydown', (e) => {
+      const key = e.key;
+      if (/[0-9+\-*/().]/.test(key)) appendValue(key);
+      else if (key === 'Enter') calculateResult();
+      else if (key === 'Backspace') display.value = display.value.slice(0, -1);
+      else if (key.toLowerCase() === 'c') clearDisplay();
+    });
+  </script>
 
-          <button onclick="appendValue('1')">1</button>
-          <button onclick="appendValue('2')">2</button>
-          <button onclick="appendValue('3')">3</button>
-          <button onclick="appendValue('+')">+</button>
-
-          <button onclick="appendValue('0')">0</button>
-          <button onclick="appendValue('.')">.</button>
-          <button onclick="calculateResult()" class="equal">=</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p>Feel free to reach out via email. Copy the address and contact me on Gmail:</p>
-      <p><strong>Email:</strong> rohanmanna2012@gmail.com</p>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 Rohan. All rights reserved.
-  </footer>
-
-  <script>
-    const display = document.getElementById('live-display');
-
-    function appendValue(value) {
-      display.value += value;
-    }
-
-    function clearDisplay() {
-      display.value = '';
-    }
-
-    function calculateResult() {
-      try {
-        display.value = eval(display.value);
-      } catch (error) {
-        display.value = 'Error';
-      }
-    }
-  </script>
+  <!-- Chess Script -->
+  <script>
+    const pieces = {
+      'r':'♜','n':'♞','b':'♝','q':'♛','k':'♚','p':'♟',
+      'R':'♖','N':'♘','B':'♗','Q':'♕','K':'♔','P':'♙','':''
+    };
+    let boardState = [
+      ['r','n','b','q','k','b','n','r'],
+      ['p','p','p','p','p','p','p','p'],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['P','P','P','P','P','P','P','P'],
+      ['R','N','B','Q','K','B','N','R']
+    ];
+    const chessboard = document.getElementById('chessboard');
+    const statusEl = document.getElementById('status');
+    let selected = null;
+    let turn = 'white';
+    let gameOver = false;
+    function isWhite(piece) { return piece && piece === piece.toUpperCase(); }
+    function isBlack(piece) { return piece && piece === piece.toLowerCase(); }
+    function clearPath(fr,fc,tr,tc) {
+      let dr = Math.sign(tr-fr), dc = Math.sign(tc-fc), r=fr+dr, c=fc+dc;
+      while(r!==tr || c!==tc) { if(boardState[r][c]!=='') return false; r+=dr; c+=dc; }
+      return true;
+    }
+    function validMove(fr,fc,tr,tc) {
+      if(gameOver) return false;
+      const p=boardState[fr][fc], t=boardState[tr][tc];
+      if(!p || (t && ((isWhite(p)&&isWhite(t))||(isBlack(p)&&isBlack(t))))) return false;
+      const dr=tr-fr, dc=tc-fc, absDr=Math.abs(dr), absDc=Math.abs(dc), dir=isWhite(p)?-1:1;
+      switch(p.toLowerCase()) {
+        case'p': return dc===0?(dr===dir&&t===''||(fr===6&&isWhite(p)||fr===1&&isBlack(p))&&dr===2*dir&&t===''&&boardState[fr+dir][fc]===''):absDc===1&&dr===dir&&t!==''; 
+        case'r': return (dr===0||dc===0)&&clearPath(fr,fc,tr,tc);
+        case'n': return absDr*absDc===2;
+        case'b': return absDr===absDc&&clearPath(fr,fc,tr,tc);
+        case'q': return (dr===0||dc===0||absDr===absDc)&&clearPath(fr,fc,tr,tc);
+        case'k': return absDr<=1&&absDc<=1;
+        default:return false;
+      }
+    }
+    function renderBoard() {
+      chessboard.innerHTML = '';
+      for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+        const s=document.createElement('div');
+        s.className='square '+((r+c)%2===0?'light':'dark');
+        s.dataset.row=r; s.dataset.col=c;
+        s.textContent=pieces[boardState[r][c]];
+        if(!gameOver)s.onclick=onSquareClick;
+        if(selected&&selected.row===r&&selected.col===c)s.classList.add('selected');
+        chessboard.appendChild(s);
+      }
+      statusEl.textContent = gameOver ? statusEl.textContent : `Turn: ${turn.charAt(0).toUpperCase()+turn.slice(1)}`;
+    }
+    function onSquareClick(e) {
+      if(turn!=='white'||gameOver)return;
+      const r=+e.target.dataset.row,c=+e.target.dataset.col,p=boardState[r][c];
+      if(selected){
+        if(validMove(selected.row,selected.col,r,c)){
+          boardState[r][c]=boardState[selected.row][selected.col];
+          boardState[selected.row][selected.col]='';
+          turn='black'; selected=null; renderBoard(); setTimeout(aiMove,500);
+        }else{ selected=null; renderBoard(); }
+      } else if(p!==''&&isWhite(p)) selected={row:r,col:c},renderBoard();
+    }
+    function generateMovesFor(color){
+      const m=[]; for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+        const p=boardState[r][c]; if((color==='white'&&isWhite(p))||(color==='black'&&isBlack(p)))
+        for(let tr=0;tr<8;tr++)for(let tc=0;tc<8;tc++)if(validMove(r,c,tr,tc))m.push({fromR:r,fromC:c,toR:tr,toC:tc});
+      } return m;
+    }
+    function setGameOver(msg){gameOver=true; statusEl.style.color='red'; statusEl.textContent=msg;}
+    function aiMove(){
+      if(gameOver)return;
+      const m=generateMovesFor('black');
+      if(!m.length){setGameOver('You win! Black has no valid moves.');return;}
+      const mv=m[Math.floor(Math.random()*m.length)];
+      boardState[mv.toR][mv.toC]=boardState[mv.fromR][mv.fromC];
+      boardState[mv.fromR][mv.fromC]=''; turn='white'; renderBoard();
+      if(!generateMovesFor('white').length)setGameOver('You lose! White has no valid moves.');
+    }
+    renderBoard();
+  </script>
 
 </body>
-</html>
+</html>      
