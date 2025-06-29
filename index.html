@@ -1,67 +1,197 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home - My Website</title>
-    <style>
-        body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #004080;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        img {
-            width: 300px; /* You can adjust this size */
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        footer {
-            background-color: #004080;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Home - My Website</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0e6f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #00b4db, #0083b0);
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 0 15px #00b4dbaa;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid #00f0ff;
+      user-select: none;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      letter-spacing: 0.15em;
+      color: #d0f0ff;
+      text-shadow: 0 0 10px #00e0ff;
+      animation: glowPulse 3s ease-in-out infinite alternate;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-weight: 600;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    nav a {
+      color: #cceeffcc;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: rgba(255 255 255 / 0.05);
+      box-shadow:
+        inset 2px 2px 5px rgba(255 255 255 / 0.15),
+        3px 3px 6px rgba(0 0 0 / 0.5);
+      transition:
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    nav a:hover,
+    nav a:focus {
+      background-color: #00eaffdd;
+      color: #001f33;
+      box-shadow:
+        0 0 20px #00faff,
+        inset 0 0 10px #00faff;
+      outline: none;
+      text-shadow: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 40px 30px;
+      background: linear-gradient(145deg, #203a43, #2c5364);
+      border-radius: 20px;
+      box-shadow:
+        10px 10px 30px #17242b,
+        -10px -10px 30px #3e5a6c;
+      text-align: center;
+      user-select: none;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    main h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #00faff;
+      text-shadow: 0 0 10px #00d0ffcc;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    main p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: #c0d6e4cc;
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+      font-weight: 500;
+    }
+
+    footer {
+      background: linear-gradient(90deg, #0083b0, #00b4db);
+      padding: 20px 10px;
+      color: #ddf8ffcc;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 2px 5px #00dfffaa;
+      user-select: none;
+      font-size: 0.9rem;
+      border-top: 3px solid #00f0ff;
+    }
+
+    /* Animations */
+    @keyframes glowPulse {
+      0% {
+        text-shadow: 0 0 5px #00cfff, 0 0 10px #00cfff, 0 0 20px #00ffffaa, 0 0 30px #00ffffaa;
+      }
+      100% {
+        text-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 40px #00ccffdd, 0 0 60px #00ccffdd;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      nav {
+        gap: 20px;
+        font-size: 1rem;
+        flex-wrap: wrap;
+      }
+      main {
+        margin: 40px 15px;
+        padding: 30px 20px;
+      }
+      main h2 {
+        font-size: 2rem;
+      }
+      main p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Me</a>
-            <a href="projects.html">Projects</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Hello!</h2>
-        <p>This is the homepage of my website. Click on "about" to know </p>
-        <p>about me and click on "projects" to take a look on my projects.</p>
-    </main>
-    <footer>
-        <p>&copy;2025 Rohan. All rights reserved. </p>
-    </footer>
+  <header>
+    <h1>Welcome to My Website</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Hello!</h2>
+    <p>Welcome to my digital space! Dive into the "About" section to get to know me better, and check out "Projects" to explore the exciting work I’ve been passionate about.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Rohan. All rights reserved.</p>
+  </footer>
 </body>
 </html>
