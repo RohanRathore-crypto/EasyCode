@@ -1,366 +1,791 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pro Calculator & Chess AI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>Demo: Chess AI + Tic-Tac-Toe + Calculator</title>
   <style>
+    /* General styling */
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #f0f4f8, #e2e8f0);
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(to right, #1e3a8a, #1e40af);
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    nav {
-      margin-top: 15px;
-    }
-
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #ffffff;
-    }
-
-    main {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    h1, h2 {
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
-
-    section {
-      margin-bottom: 50px;
-    }
-
-    .card {
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-
-    .calculator {
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 340px;
-      margin: 0 auto 40px;
-    }
-
-    .display {
-      width: 100%;
-      height: 60px;
-      font-size: 26px;
-      text-align: right;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #f9fafb;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .buttons button {
-      padding: 18px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      background-color: #1e293b;
-      color: white;
-      cursor: pointer;
-      transition: background 0.25s ease;
-    }
-
-    .buttons button:hover {
-      background-color: #334155;
-    }
-
-    .buttons .clear {
-      background-color: #ef4444;
-    }
-
-    .buttons .equal {
-      background-color: #10b981;
-      grid-column: span 2;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #1e293b;
-      color: #fff;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      nav a {
-        display: block;
-        margin: 10px 0;
-      }
-    }
-
-    /* Chess styles */
-    .chess-container {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
       display: flex;
-      justify-content: center;
       flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #1f1f1f;
+      padding: 1rem 2rem;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #4caf50;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #4caf50;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1rem;
+      margin-left: 1.2rem;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav button.active,
+    nav button:hover {
+      color: #4caf50;
+      background: #222;
+    }
+    main {
+      flex-grow: 1;
+      padding: 1rem 2rem;
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      width: 100%;
     }
 
+    /* Tabs content */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* About, Features, Contact sections styling */
+    h2 {
+      color: #4caf50;
+      margin-top: 0;
+    }
+    p {
+      line-height: 1.6;
+    }
+
+    /* --- Chess Board Styles --- */
     #chessboard {
       display: grid;
-      grid-template-columns: repeat(8, 60px);
-      grid-template-rows: repeat(8, 60px);
-      border: 2px solid #333;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+      border: 3px solid #4caf50;
+      width: 400px;
+      margin: 1rem auto;
       user-select: none;
-      margin-bottom: 10px;
+      border-radius: 8px;
     }
-
     .square {
-      width: 60px;
-      height: 60px;
-      font-size: 40px;
-      text-align: center;
-      line-height: 60px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
-
     .light {
-      background-color: #eeeed2;
+      background-color: #eee;
+      color: black;
     }
-
     .dark {
-      background-color: #769656;
+      background-color: #4caf50;
+      color: white;
     }
-
     .selected {
-      outline: 3px solid red;
+      outline: 3px solid #ffeb3b;
+      outline-offset: -3px;
+    }
+    #chess-status {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
 
-    #status {
+    /* --- Tic Tac Toe Styles (as you provided) --- */
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      font-size: 2.5em;
       font-weight: bold;
-      font-size: 20px;
-      min-height: 28px;
-      color: darkgreen;
+      background-color: #f0f0f0;
+      border: 3px solid #444;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      user-select: none;
+    }
+    .cell:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.05);
+    }
+    #status {
+      font-size: 1.2em;
+      margin-top: 15px;
+      color: #333;
+      min-height: 1.5em;
+      text-align: center;
+    }
+    button.tictactoe-btn {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button.tictactoe-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      main {
+        padding: 1rem;
+      }
+      #chessboard {
+        grid-template-columns: repeat(8, 40px);
+        grid-template-rows: repeat(8, 40px);
+        width: 320px;
+      }
+      .square {
+        font-size: 24px;
+      }
+      #board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 8px;
+      }
+      .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2em;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🚀 Pro Calculator & Chess AI Project</h1>
+    <h1>Demo Suite</h1>
     <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#live-demo">Live Demo</a>
-      <a href="#contact">Contact</a>
+      <button class="tab-btn active" data-tab="about">About</button>
+      <button class="tab-btn" data-tab="features">Features</button>
+      <button class="tab-btn" data-tab="demo">Demo</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
     </nav>
   </header>
 
   <main>
-    <section id="about" class="card">
-      <h2>About</h2>
-      <p>A modern calculator and a fun chess AI game built using HTML, CSS, and JavaScript — all in one professional project.</p>
+    <!-- About Tab -->
+    <section id="about" class="tab-content active">
+      <h2>About This Demo</h2>
+      <p>
+        Welcome to this multi-demo suite featuring a Tic-Tac-Toe game, a Chess game with AI, and a simple calculator.
+        This demo showcases how classic games can be implemented using JavaScript with clean design and interactive UI.
+      </p>
+      <p>
+        The Chess AI is designed to challenge you with basic evaluation and valid move mechanics, while the Tic-Tac-Toe
+        game uses a minimax algorithm to be unbeatable. The calculator is a clean and functional utility for basic math.
+      </p>
     </section>
 
-    <section id="features" class="card">
+    <!-- Features Tab -->
+    <section id="features" class="tab-content">
       <h2>Features</h2>
       <ul>
-        <li>🧮 Calculator with responsive UI and safe expression evaluation</li>
-        <li>♟️ Chess game with basic AI opponent</li>
-        <li>🎮 Playable interface with on-screen feedback</li>
-        <li>🌐 Fully browser-based with no dependencies</li>
+        <li><strong>Tic-Tac-Toe:</strong> Human vs AI, unbeatable with minimax algorithm, clean responsive design.</li>
+        <li><strong>Chess:</strong> Play vs AI, valid piece movement, basic AI using evaluation of board states.</li>
+        <li><strong>Calculator:</strong> Basic arithmetic operations with a professional UI.</li>
+        <li>Responsive and accessible interface.</li>
+        <li>Modern and clean styling with smooth interactions.</li>
       </ul>
     </section>
 
-    <section id="live-demo" class="card">
-      <h2>Live Demo</h2>
-
-      <!-- Calculator -->
-      <div class="calculator">
-        <input type="text" class="display" id="display" disabled />
-        <div class="buttons">
-          <button onclick="clearDisplay()" class="clear">C</button>
-          <button onclick="appendValue('(')">(</button>
-          <button onclick="appendValue(')')">)</button>
-          <button onclick="appendValue('/')">÷</button>
-          <button onclick="appendValue('7')">7</button>
-          <button onclick="appendValue('8')">8</button>
-          <button onclick="appendValue('9')">9</button>
-          <button onclick="appendValue('*')">×</button>
-          <button onclick="appendValue('4')">4</button>
-          <button onclick="appendValue('5')">5</button>
-          <button onclick="appendValue('6')">6</button>
-          <button onclick="appendValue('-')">−</button>
-          <button onclick="appendValue('1')">1</button>
-          <button onclick="appendValue('2')">2</button>
-          <button onclick="appendValue('3')">3</button>
-          <button onclick="appendValue('+')">+</button>
-          <button onclick="appendValue('0')">0</button>
-          <button onclick="appendValue('.')">.</button>
-          <button onclick="calculateResult()" class="equal">=</button>
-        </div>
-      </div>
+    <!-- Demo Tab -->
+    <section id="demo" class="tab-content">
+      <h2>Demo</h2>
 
       <!-- Chess Game -->
-      <div class="chess-container">
-        <div id="chessboard"></div>
-        <div id="status">Turn: White</div>
+      <h3>Chess Game (Play as White vs AI Black)</h3>
+      <div id="chessboard"></div>
+      <div id="chess-status"></div>
+      <button onclick="chRestart()" style="display:block; margin:10px auto; background:#4caf50; border:none; color:#fff; padding:8px 15px; border-radius:6px; cursor:pointer;">Restart Chess Game</button>
+
+      <!-- Tic Tac Toe -->
+      <h3 style="margin-top: 2rem;">Tic-Tac-Toe: Human (X) vs AI (O)</h3>
+      <div id="board"></div>
+      <div id="status">Player X's turn</div>
+      <button class="tictactoe-btn" onclick="restartGame()">Restart Tic-Tac-Toe</button>
+
+      <!-- Calculator -->
+      <h3 style="margin-top: 2rem;">Calculator</h3>
+      <div class="calculator" style="max-width:320px; margin: 0 auto; background:#222; padding:20px; border-radius:12px; box-shadow: 0 0 15px #4caf50;">
+        <input type="text" id="calc-display" disabled style="width:100%; font-size:1.6rem; padding:10px; border-radius:6px; margin-bottom:15px; text-align:right; background:#333; color:#eee; border:none;" />
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+          <button onclick="calcPress('7')">7</button>
+          <button onclick="calcPress('8')">8</button>
+          <button onclick="calcPress('9')">9</button>
+          <button onclick="calcPress('/')">÷</button>
+
+          <button onclick="calcPress('4')">4</button>
+          <button onclick="calcPress('5')">5</button>
+          <button onclick="calcPress('6')">6</button>
+          <button onclick="calcPress('*')">×</button>
+
+          <button onclick="calcPress('1')">1</button>
+          <button onclick="calcPress('2')">2</button>
+          <button onclick="calcPress('3')">3</button>
+          <button onclick="calcPress('-')">−</button>
+
+          <button onclick="calcPress('0')">0</button>
+          <button onclick="calcPress('.')">.</button>
+          <button onclick="calcClear()">C</button>
+          <button onclick="calcPress('+')">+</button>
+
+          <button style="grid-column: span 4; background:#4caf50; color:#fff; font-weight:700; font-size:1.2rem;" onclick="calcCalculate()">=</button>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="card">
+    <!-- Contact Tab -->
+    <section id="contact" class="tab-content">
       <h2>Contact</h2>
-      <p>Have questions or feedback? Reach out:</p>
-      <p><strong>Email:</strong> <a href="mailto:rohanmanna2012@gmail.com">rohanmanna2012@gmail.com</a></p>
+      <p>If you have questions, suggestions, or just want to say hello, reach out!</p>
+      <ul>
+        <li>Email: demo@example.com</li>
+        <li>GitHub: <a href="https://github.com/example" target="_blank" style="color:#4caf50;">https://github.com/example</a></li>
+        <li>Twitter: <a href="https://twitter.com/example" target="_blank" style="color:#4caf50;">@example</a></li>
+      </ul>
     </section>
   </main>
 
-  <footer>
-    &copy; 2025 Rohan. All rights reserved.
-  </footer>
-
-  <!-- Calculator Script -->
   <script>
-    const display = document.getElementById('display');
-    function appendValue(val) { display.value += val; }
-    function clearDisplay() { display.value = ''; }
-    function calculateResult() {
-      try {
-        const result = Function('"use strict"; return (' + display.value + ')')();
-        display.value = result;
-      } catch {
-        display.value = 'Error';
-      }
-    }
-    document.addEventListener('keydown', (e) => {
-      const key = e.key;
-      if (/[0-9+\-*/().]/.test(key)) appendValue(key);
-      else if (key === 'Enter') calculateResult();
-      else if (key === 'Backspace') display.value = display.value.slice(0, -1);
-      else if (key.toLowerCase() === 'c') clearDisplay();
+    // --- Tab switching ---
+    const tabButtons = document.querySelectorAll('nav button.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
     });
-  </script>
 
-  <!-- Chess Script -->
-  <script>
-    const pieces = {
-      'r':'♜','n':'♞','b':'♝','q':'♛','k':'♚','p':'♟',
-      'R':'♖','N':'♘','B':'♗','Q':'♕','K':'♔','P':'♙','':''
-    };
-    let boardState = [
-      ['r','n','b','q','k','b','n','r'],
-      ['p','p','p','p','p','p','p','p'],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
-      ['P','P','P','P','P','P','P','P'],
-      ['R','N','B','Q','K','B','N','R']
-    ];
-    const chessboard = document.getElementById('chessboard');
-    const statusEl = document.getElementById('status');
-    let selected = null;
-    let turn = 'white';
-    let gameOver = false;
-    function isWhite(piece) { return piece && piece === piece.toUpperCase(); }
-    function isBlack(piece) { return piece && piece === piece.toLowerCase(); }
-    function clearPath(fr,fc,tr,tc) {
-      let dr = Math.sign(tr-fr), dc = Math.sign(tc-fc), r=fr+dr, c=fc+dc;
-      while(r!==tr || c!==tc) { if(boardState[r][c]!=='') return false; r+=dr; c+=dc; }
+
+    // --- Chess Game Code ---
+    const pies = {'r':'♜','n':'♞','b':'♝','q':'♛','k':'♚','p':'♟','R':'♖','N':'♘','B':'♗','Q':'♕','K':'♔','P':'♙'};
+    const chessBoard = document.getElementById('chessboard'), chessStatus = document.getElementById('chess-status');
+    let chState, chTurn, chSel, chActive;
+
+    function chRestart(){
+      chState = [
+        ['r','n','b','q','k','b','n','r'],
+        ['p','p','p','p','p','p','p','p'],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['P','P','P','P','P','P','P','P'],
+        ['R','N','B','Q','K','B','N','R']
+      ];
+      chTurn = 'white'; chSel = null; chActive = true;
+      chessStatus.style.color = '#eee';
+      chessStatus.textContent = `Turn: White`;
+      renderChess();
+    }
+
+    function renderChess(){
+      chessBoard.innerHTML = '';
+      for (let r=0; r<8; r++) {
+        for (let c=0; c<8; c++){
+          const sq = document.createElement('div');
+          sq.className = 'square '+((r+c)%2===0?'light':'dark');
+          sq.textContent = pies[chState[r][c]] || '';
+          sq.dataset.r = r; sq.dataset.c = c;
+          sq.onclick = () => clickChess(r, c);
+          if (chSel && chSel.r===r && chSel.c===c) sq.classList.add('selected');
+          chessBoard.appendChild(sq);
+        }
+      }
+      if (chActive) chessStatus.textContent = `Turn: ${chTurn.charAt(0).toUpperCase()+chTurn.slice(1)}`;
+    }
+
+    function isWhite(p){ return p && p === p.toUpperCase(); }
+    function isBlack(p){ return p && p === p.toLowerCase(); }
+
+    function validMove(fr, fc, tr, tc) {
+      const piece = chState[fr][fc];
+      if (!piece) return false;
+      const target = chState[tr][tc];
+      if ((isWhite(piece) && isWhite(target)) || (isBlack(piece) && isBlack(target))) return false;
+      const dr = tr - fr;
+      const dc = tc - fc;
+      const adx = Math.abs(dc);
+      const ady = Math.abs(dr);
+      const color = isWhite(piece) ? 'white' : 'black';
+
+      if (piece.toLowerCase() === 'p') {
+        const forward = (color === 'white') ? -1 : 1;
+        if (dc === 0 && dr === forward && !target) return true;
+        if (dc === 0 && dr === 2*forward && !target && !chState[fr+forward][fc]) {
+          if ((color === 'white' && fr === 6) || (color === 'black' && fr === 1)) return true;
+        }
+        if (ady === 1 && adx === 1 && target) return true;
+        return false;
+      }
+      if (piece.toLowerCase() === 'n') {
+        return (adx === 1 && ady === 2) || (adx === 2 && ady === 1);
+      }
+      if (piece.toLowerCase() === 'b') {
+        if (adx !== ady) return false;
+        return pathClear(fr, fc, tr, tc);
+      }
+      if (piece.toLowerCase() === 'r') {
+        if (adx !== 0 && ady !== 0) return false;
+        return pathClear(fr, fc, tr, tc);
+      }
+      if (piece.toLowerCase() === 'q') {
+        if (adx === ady || adx === 0 || ady === 0) {
+          return pathClear(fr, fc, tr, tc);
+        }
+        return false;
+      }
+      if (piece.toLowerCase() === 'k') {
+        return adx <= 1 && ady <= 1;
+      }
+      return false;
+    }
+
+    function pathClear(fr, fc, tr, tc) {
+      const dr = Math.sign(tr - fr);
+      const dc = Math.sign(tc - fc);
+      let r = fr + dr;
+      let c = fc + dc;
+      while (r !== tr || c !== tc) {
+        if (chState[r][c]) return false;
+        r += dr;
+        c += dc;
+      }
       return true;
     }
-    function validMove(fr,fc,tr,tc) {
-      if(gameOver) return false;
-      const p=boardState[fr][fc], t=boardState[tr][tc];
-      if(!p || (t && ((isWhite(p)&&isWhite(t))||(isBlack(p)&&isBlack(t))))) return false;
-      const dr=tr-fr, dc=tc-fc, absDr=Math.abs(dr), absDc=Math.abs(dc), dir=isWhite(p)?-1:1;
-      switch(p.toLowerCase()) {
-        case'p': return dc===0?(dr===dir&&t===''||(fr===6&&isWhite(p)||fr===1&&isBlack(p))&&dr===2*dir&&t===''&&boardState[fr+dir][fc]===''):absDc===1&&dr===dir&&t!==''; 
-        case'r': return (dr===0||dc===0)&&clearPath(fr,fc,tr,tc);
-        case'n': return absDr*absDc===2;
-        case'b': return absDr===absDc&&clearPath(fr,fc,tr,tc);
-        case'q': return (dr===0||dc===0||absDr===absDc)&&clearPath(fr,fc,tr,tc);
-        case'k': return absDr<=1&&absDc<=1;
-        default:return false;
-      }
-    }
-    function renderBoard() {
-      chessboard.innerHTML = '';
-      for(let r=0;r<8;r++)for(let c=0;c<8;c++){
-        const s=document.createElement('div');
-        s.className='square '+((r+c)%2===0?'light':'dark');
-        s.dataset.row=r; s.dataset.col=c;
-        s.textContent=pieces[boardState[r][c]];
-        if(!gameOver)s.onclick=onSquareClick;
-        if(selected&&selected.row===r&&selected.col===c)s.classList.add('selected');
-        chessboard.appendChild(s);
-      }
-      statusEl.textContent = gameOver ? statusEl.textContent : `Turn: ${turn.charAt(0).toUpperCase()+turn.slice(1)}`;
-    }
-    function onSquareClick(e) {
-      if(turn!=='white'||gameOver)return;
-      const r=+e.target.dataset.row,c=+e.target.dataset.col,p=boardState[r][c];
-      if(selected){
-        if(validMove(selected.row,selected.col,r,c)){
-          boardState[r][c]=boardState[selected.row][selected.col];
-          boardState[selected.row][selected.col]='';
-          turn='black'; selected=null; renderBoard(); setTimeout(aiMove,500);
-        }else{ selected=null; renderBoard(); }
-      } else if(p!==''&&isWhite(p)) selected={row:r,col:c},renderBoard();
-    }
-    function generateMovesFor(color){
-      const m=[]; for(let r=0;r<8;r++)for(let c=0;c<8;c++){
-        const p=boardState[r][c]; if((color==='white'&&isWhite(p))||(color==='black'&&isBlack(p)))
-        for(let tr=0;tr<8;tr++)for(let tc=0;tc<8;tc++)if(validMove(r,c,tr,tc))m.push({fromR:r,fromC:c,toR:tr,toC:tc});
-      } return m;
-    }
-    function setGameOver(msg){gameOver=true; statusEl.style.color='red'; statusEl.textContent=msg;}
-    function aiMove(){
-      if(gameOver)return;
-      const m=generateMovesFor('black');
-      if(!m.length){setGameOver('You win! Black has no valid moves.');return;}
-      const mv=m[Math.floor(Math.random()*m.length)];
-      boardState[mv.toR][mv.toC]=boardState[mv.fromR][mv.fromC];
-      boardState[mv.fromR][mv.fromC]=''; turn='white'; renderBoard();
-      if(!generateMovesFor('white').length)setGameOver('You lose! White has no valid moves.');
-    }
-    renderBoard();
-  </script>
 
+    function clickChess(r,c){
+      if (!chActive) return;
+      const p = chState[r][c];
+      if (chSel) {
+        if (validMove(chSel.r, chSel.c, r, c)) {
+          moveChess(chSel.r, chSel.c, r, c);
+          chSel = null;
+          chTurn = (chTurn === 'white') ? 'black' : 'white';
+          if (!checkGameOver()) {
+            chessStatus.textContent = 'AI thinking...';
+            chActive = false;
+            setTimeout(chAIMove, 400);
+          }
+          renderChess();
+        } else {
+          // Change selection if clicking own piece
+          if ((chTurn === 'white' && isWhite(p)) || (chTurn === 'black' && isBlack(p))) {
+            chSel = {r,c};
+            renderChess();
+          }
+        }
+      } else {
+        if ((chTurn === 'white' && isWhite(p)) || (chTurn === 'black' && isBlack(p))) {
+          chSel = {r,c};
+          renderChess();
+        }
+      }
+    }
+
+    function moveChess(fr, fc, tr, tc){
+      chState[tr][tc] = chState[fr][fc];
+      chState[fr][fc] = '';
+    }
+
+    // Basic evaluation: +10 for pawn, +30 for knight/bishop, +50 rook, +90 queen, +900 king
+    function evalBoard(state) {
+      const vals = {'p':10,'n':30,'b':30,'r':50,'q':90,'k':900};
+      let score = 0;
+      for (let r=0; r<8; r++) {
+        for (let c=0; c<8; c++) {
+          let p = state[r][c];
+          if (p) {
+            let val = vals[p.toLowerCase()] || 0;
+            score += (p === p.toUpperCase()) ? val : -val;
+          }
+        }
+      }
+      return score;
+    }
+
+    // Generate all valid moves for a color
+    function generateMoves(state, color) {
+      let moves = [];
+      for (let r=0; r<8; r++) {
+        for (let c=0; c<8; c++) {
+          const p = state[r][c];
+          if (!p) continue;
+          if ((color === 'white' && !isWhite(p)) || (color === 'black' && !isBlack(p))) continue;
+          for (let tr=0; tr<8; tr++) {
+            for (let tc=0; tc<8; tc++) {
+              if (validMoveCustom(state, r,c,tr,tc)) {
+                moves.push({from:[r,c], to:[tr,tc]});
+              }
+            }
+          }
+        }
+      }
+      return moves;
+    }
+
+    // Valid move check for AI using given state (similar to validMove but works with state param)
+    function validMoveCustom(state, fr, fc, tr, tc) {
+      const piece = state[fr][fc];
+      if (!piece) return false;
+      const target = state[tr][tc];
+      if ((isWhite(piece) && target && isWhite(target)) || (isBlack(piece) && target && isBlack(target))) return false;
+      const dr = tr - fr;
+      const dc = tc - fc;
+      const adx = Math.abs(dc);
+      const ady = Math.abs(dr);
+      const color = isWhite(piece) ? 'white' : 'black';
+
+      if (piece.toLowerCase() === 'p') {
+        const forward = (color === 'white') ? -1 : 1;
+        if (dc === 0 && dr === forward && !target) return true;
+        if (dc === 0 && dr === 2*forward && !target && !state[fr+forward][fc]) {
+          if ((color === 'white' && fr === 6) || (color === 'black' && fr === 1)) return true;
+        }
+        if (ady === 1 && adx === 1 && target) return true;
+        return false;
+      }
+      if (piece.toLowerCase() === 'n') {
+        return (adx === 1 && ady === 2) || (adx === 2 && ady === 1);
+      }
+      if (piece.toLowerCase() === 'b') {
+        if (adx !== ady) return false;
+        return pathClearCustom(state, fr, fc, tr, tc);
+      }
+      if (piece.toLowerCase() === 'r') {
+        if (adx !== 0 && ady !== 0) return false;
+        return pathClearCustom(state, fr, fc, tr, tc);
+      }
+      if (piece.toLowerCase() === 'q') {
+        if (adx === ady || adx === 0 || ady === 0) {
+          return pathClearCustom(state, fr, fc, tr, tc);
+        }
+        return false;
+      }
+      if (piece.toLowerCase() === 'k') {
+        return adx <= 1 && ady <= 1;
+      }
+      return false;
+    }
+    function pathClearCustom(state, fr, fc, tr, tc) {
+      const dr = Math.sign(tr - fr);
+      const dc = Math.sign(tc - fc);
+      let r = fr + dr;
+      let c = fc + dc;
+      while (r !== tr || c !== tc) {
+        if (state[r][c]) return false;
+        r += dr;
+        c += dc;
+      }
+      return true;
+    }
+
+    // Make move on copied state
+    function makeMove(state, move) {
+      const newState = state.map(row => row.slice());
+      const [fr, fc] = move.from;
+      const [tr, tc] = move.to;
+      newState[tr][tc] = newState[fr][fc];
+      newState[fr][fc] = '';
+      return newState;
+    }
+
+    // AI move: simple minimax depth 2, maximizing black (AI)
+    function chAIMove(){
+      if (!chActive) {
+        const moves = generateMoves(chState, 'black');
+        if (moves.length === 0) {
+          chessStatus.textContent = "Game Over: No moves for AI.";
+          chActive = false;
+          return;
+        }
+        let bestScore = -Infinity;
+        let bestMove = null;
+        for (const move of moves) {
+          const newState = makeMove(chState, move);
+          const score = minimax(newState, 1, false);
+          if (score > bestScore) {
+            bestScore = score;
+            bestMove = move;
+          }
+        }
+        if (bestMove) {
+          moveChess(bestMove.from[0], bestMove.from[1], bestMove.to[0], bestMove.to[1]);
+          chTurn = 'white';
+          chActive = true;
+          if (checkGameOver()) return;
+          chessStatus.textContent = 'Turn: White';
+          renderChess();
+        }
+      }
+    }
+
+    function minimax(state, depth, isMaximizing){
+      if (depth === 0) return evalBoard(state);
+      const color = isMaximizing ? 'black' : 'white';
+      const moves = generateMoves(state, color);
+      if (moves.length === 0) return evalBoard(state);
+      if (isMaximizing){
+        let maxEval = -Infinity;
+        for (const move of moves){
+          const newState = makeMove(state, move);
+          const evalScore = minimax(newState, depth - 1, false);
+          maxEval = Math.max(maxEval, evalScore);
+        }
+        return maxEval;
+      } else {
+        let minEval = Infinity;
+        for (const move of moves){
+          const newState = makeMove(state, move);
+          const evalScore = minimax(newState, depth - 1, true);
+          minEval = Math.min(minEval, evalScore);
+        }
+        return minEval;
+      }
+    }
+
+    // Check for checkmate/stalemate simplified (if no moves for current turn)
+    function checkGameOver(){
+      const moves = generateMoves(chState, chTurn);
+      if (moves.length === 0) {
+        chessStatus.style.color = '#f44336';
+        chessStatus.textContent = `${chTurn.charAt(0).toUpperCase()+chTurn.slice(1)} has no moves. Game Over.`;
+        chActive = false;
+        return true;
+      }
+      return false;
+    }
+
+    chRestart();
+
+
+    // --- Tic Tac Toe Code ---
+    const board = document.getElementById("board");
+    const status = document.getElementById("status");
+    let currentPlayer = "X";
+    let gameActive = true;
+    let gameState = ["", "", "", "", "", "", "", "", ""];
+
+    const winningConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+
+    function createBoard() {
+      board.innerHTML = "";
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.index = i;
+        cell.addEventListener("click", handleCellClick, { once: true });
+        board.appendChild(cell);
+      }
+    }
+
+    function handleCellClick(event) {
+      if (!gameActive) return;
+      const cell = event.target;
+      const index = parseInt(cell.dataset.index);
+
+      if (gameState[index] !== "") return;
+
+      gameState[index] = currentPlayer;
+      cell.textContent = currentPlayer;
+
+      if (checkWin()) {
+        status.textContent = `Player ${currentPlayer} wins!`;
+        gameActive = false;
+        return;
+      }
+
+      if (checkDraw()) {
+        status.textContent = `It's a draw!`;
+        gameActive = false;
+        return;
+      }
+
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+      status.textContent = `Player ${currentPlayer}'s turn`;
+
+      if (currentPlayer === "O" && gameActive) {
+        // AI move
+        setTimeout(aiMove, 250);
+      }
+    }
+
+    function checkWin() {
+      return winningConditions.some(condition => {
+        const [a, b, c] = condition;
+        return (
+          gameState[a] === currentPlayer &&
+          gameState[b] === currentPlayer &&
+          gameState[c] === currentPlayer
+        );
+      });
+    }
+
+    function checkDraw() {
+      return gameState.every(cell => cell !== "");
+    }
+
+    function aiMove() {
+      // Use minimax to pick best move for O
+      let bestScore = -Infinity;
+      let bestMove = null;
+
+      for (let i = 0; i < 9; i++) {
+        if (gameState[i] === "") {
+          gameState[i] = "O";
+          let score = minimaxTTT(gameState, 0, false);
+          gameState[i] = "";
+          if (score > bestScore) {
+            bestScore = score;
+            bestMove = i;
+          }
+        }
+      }
+
+      if (bestMove !== null) {
+        const cell = board.querySelector(`[data-index="${bestMove}"]`);
+        if (cell) {
+          cell.click();
+        }
+      }
+    }
+
+    function minimaxTTT(boardState, depth, isMaximizing) {
+      if (checkWinState(boardState, "O")) return 10 - depth;
+      if (checkWinState(boardState, "X")) return depth - 10;
+      if (boardState.every(cell => cell !== "")) return 0;
+
+      if (isMaximizing) {
+        let maxEval = -Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (boardState[i] === "") {
+            boardState[i] = "O";
+            let evalScore = minimaxTTT(boardState, depth + 1, false);
+            boardState[i] = "";
+            maxEval = Math.max(maxEval, evalScore);
+          }
+        }
+        return maxEval;
+      } else {
+        let minEval = Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (boardState[i] === "") {
+            boardState[i] = "X";
+            let evalScore = minimaxTTT(boardState, depth + 1, true);
+            boardState[i] = "";
+            minEval = Math.min(minEval, evalScore);
+          }
+        }
+        return minEval;
+      }
+    }
+
+    function checkWinState(boardState, player) {
+      return winningConditions.some(condition => {
+        const [a, b, c] = condition;
+        return (
+          boardState[a] === player &&
+          boardState[b] === player &&
+          boardState[c] === player
+        );
+      });
+    }
+
+    function restartGame() {
+      gameState = ["", "", "", "", "", "", "", "", ""];
+      currentPlayer = "X";
+      gameActive = true;
+      status.textContent = "Player X's turn";
+      createBoard();
+    }
+
+    createBoard();
+
+
+    // --- Calculator Code ---
+    const calcDisplay = document.getElementById('calc-display');
+    let calcExpression = "";
+
+    function calcPress(val) {
+      if (val === '.' && calcExpression.endsWith('.')) return;
+      calcExpression += val;
+      calcDisplay.value = calcExpression;
+    }
+
+    function calcClear() {
+      calcExpression = "";
+      calcDisplay.value = "";
+    }
+
+    function calcCalculate() {
+      try {
+        // Sanitize input, only allow numbers and operators
+        if (/[^0-9+\-*/.]/.test(calcExpression)) {
+          calcDisplay.value = "Error";
+          calcExpression = "";
+          return;
+        }
+        let result = eval(calcExpression);
+        calcDisplay.value = result;
+        calcExpression = result.toString();
+      } catch {
+        calcDisplay.value = "Error";
+        calcExpression = "";
+      }
+    }
+  </script>
 </body>
-</html>      
+</html>
