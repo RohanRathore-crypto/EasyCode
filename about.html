@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me - Rohan</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,98 +13,162 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #1f1c2c, #928dab);
-      color: #f5f5f5;
-      line-height: 1.6;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #f0f0f0;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     header {
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 30px 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 20px;
       text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
 
     header h1 {
-      font-size: 2.8em;
-      color: #ffffff;
-      letter-spacing: 2px;
-      animation: fadeIn 2s ease-in-out;
+      font-size: 3.2em;
+      color: #e0e0e0;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      animation: fadeInDown 1.8s ease forwards;
     }
 
     section.about {
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 20px 40px;
       background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      animation: slideUp 1.5s ease;
+      max-width: 900px;
+      margin: 60px auto 40px;
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      animation: slideUpFade 1.6s ease forwards;
     }
 
     section.about h2 {
-      font-size: 2em;
-      color: #ffffff;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #ffffff33;
-      padding-bottom: 10px;
+      font-size: 2.4em;
+      font-weight: 700;
+      margin-bottom: 24px;
+      border-bottom: 3px solid #ffffff55;
+      padding-bottom: 12px;
+      letter-spacing: 1.2px;
+      color: #f0f0f0;
     }
 
     section.about p {
+      font-size: 1.2em;
+      margin-bottom: 22px;
+      color: #d9d9d9;
+      line-height: 1.8;
+    }
+
+    section.about p.contact {
+      font-weight: 600;
       font-size: 1.1em;
-      margin-bottom: 15px;
-      color: #e0e0e0;
+      color: #a8d0e6;
+      letter-spacing: 0.8px;
     }
 
     footer {
+      background-color: rgba(0, 0, 0, 0.55);
       text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #ccc;
+      padding: 16px 10px;
+      font-size: 0.95em;
+      color: #bbb;
+      letter-spacing: 1px;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+      user-select: none;
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* Animations */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @keyframes slideUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @media (max-width: 600px) {
+    /* Responsive */
+    @media (max-width: 720px) {
       section.about {
-        padding: 20px;
+        padding: 30px 25px;
+        margin: 40px 20px 30px;
       }
 
       header h1 {
-        font-size: 2em;
+        font-size: 2.4em;
       }
 
       section.about h2 {
-        font-size: 1.6em;
+        font-size: 1.8em;
+      }
+
+      section.about p {
+        font-size: 1em;
+      }
+    }
+
+    @media (max-width: 400px) {
+      section.about {
+        padding: 25px 20px;
+        margin: 30px 15px 20px;
+      }
+
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      section.about h2 {
+        font-size: 1.5em;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>About me</h1>
+    <h1>About Me</h1>
   </header>
 
-  <section class="about">
-    <h2>Who I am</h2>
-    </p> I am a programmer, developer and designer I can make anything in any language and I will only charge 25 to 50 rupees. Note: I will except payment in indian currency only. </p>
-
-    <p>My mission is to deliver high-quality work that inspires and empowers.</p>
-
-    <p>With years of experience I help businesses, creators, and startups bring their visions to life online.</p>
-    <p>Contact me at: rohanmanna2012@gmail.com</p>
+  <section class="about" aria-label="About Me Section">
+    <h2>Who I Am</h2>
+    <p>
+      I'm Rohan, a passionate programmer, developer, and designer dedicated to crafting high-quality digital solutions. I specialize in working across multiple languages and platforms, delivering tailored results that fit your needs.
+    </p>
+    <p>
+      My commitment is to bring your ideas to life with precision and creativity — all at an affordable rate ranging from ₹25 to ₹50 per project. Please note, payments are accepted in Indian Rupees (INR) only.
+    </p>
+    <p>
+      With years of experience collaborating with businesses, creators, and startups, I’m here to help you build a strong and effective online presence.
+    </p>
+    <p class="contact">
+      📧 Contact me: <a href="mailto:rohanmanna2012@gmail.com" style="color:#a8d0e6; text-decoration:none;">rohanmanna2012@gmail.com</a>
+    </p>
   </section>
 
   <footer>
     &copy; 2025 Rohan. All rights reserved.
   </footer>
+
 </body>
 </html>
